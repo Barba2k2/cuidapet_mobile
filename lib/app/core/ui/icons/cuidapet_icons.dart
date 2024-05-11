@@ -12,6 +12,10 @@
 ///       - asset: fonts/CuidapetIcons.ttf
 ///
 /// 
+/// * Material Design Icons, Copyright (C) Google, Inc
+///         Author:    Google
+///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+///         Homepage:  https://design.google.com/icons/
 /// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
@@ -29,6 +33,7 @@ class CuidapetIcons {
   static const _kFontFam = 'CuidapetIcons';
   static const String? _kFontPkg = null;
 
+  static const IconData email = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData google = IconData(0xf1a0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook = IconData(0xf30c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
