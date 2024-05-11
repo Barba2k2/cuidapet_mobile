@@ -1,0 +1,140 @@
+Launching lib\main.dart on sdk gphone x86 64 in debug mode...
+Warning: Mapping new ns http://schemas.android.com/repository/android/common/02 to old ns http://schemas.android.com/repository/android/common/01
+Warning: Mapping new ns http://schemas.android.com/repository/android/generic/02 to old ns http://schemas.android.com/repository/android/generic/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/addon2/02 to old ns http://schemas.android.com/sdk/android/repo/addon2/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/addon2/03 to old ns http://schemas.android.com/sdk/android/repo/addon2/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/repository2/02 to old ns http://schemas.android.com/sdk/android/repo/repository2/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/repository2/03 to old ns http://schemas.android.com/sdk/android/repo/repository2/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/sys-img2/03 to old ns http://schemas.android.com/sdk/android/repo/sys-img2/01
+Warning: Mapping new ns http://schemas.android.com/sdk/android/repo/sys-img2/02 to old ns http://schemas.android.com/sdk/android/repo/sys-img2/01
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:38:8: Error: Type 'SingletonBind' not found.
+  List<SingletonBind> get instanciatedSingletons =>
+       ^^^^^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:43:12: Error: Type 'SingletonBind' not found.
+      List<SingletonBind<Object>> singletons, Injector injector) {
+           ^^^^^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:43:12: Error: Expected 0 type arguments.
+      List<SingletonBind<Object>> singletons, Injector injector) {
+           ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/models/bind.dart:4:7: Error: The non-abstract class 'Bind' is missing implementations for these members:
+ - BindContract.cast
+ - BindContract.copyWith
+Try to either
+ - provide an implementation,
+ - inherit an implementation from a superclass or mixin,
+ - mark the class as abstract, or
+ - provide a 'noSuchMethod' implementation.
+
+class Bind<T extends Object> extends BindContract<T> {
+      ^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:53:19: Context: 'BindContract.cast' is defined here.
+  BindContract<E> cast<E extends Object>();
+                  ^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:42:19: Context: 'BindContract.copyWith' is defined here.
+  BindContract<T> copyWith({
+                  ^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/models/bind.dart:46:7: Error: The non-abstract class 'AsyncBind' is missing implementations for these members:
+ - BindContract.cast
+ - BindContract.copyWith
+Try to either
+ - provide an implementation,
+ - inherit an implementation from a superclass or mixin,
+ - mark the class as abstract, or
+ - provide a 'noSuchMethod' implementation.
+class AsyncBind<T extends Object> extends Bind<Future<T>>
+      ^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:53:19: Context: 'BindContract.cast' is defined here.
+  BindContract<E> cast<E extends Object>();
+                  ^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:42:19: Context: 'BindContract.copyWith' is defined here.
+
+  BindContract<T> copyWith({
+                  ^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/models/bind.dart:68:7: Error: The non-abstract class 'BindInject' is missing implementations for these members:
+ - BindContract.cast
+
+ - BindContract.copyWith
+Try to either
+ - provide an implementation,
+ - inherit an implementation from a superclass or mixin,
+ - mark the class as abstract, or
+ - provide a 'noSuchMethod' implementation.
+
+class BindInject<T extends Object> extends Bind<T> {
+      ^^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:53:19: Context: 'BindContract.cast' is defined here.
+  BindContract<E> cast<E extends Object>();
+                  ^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart:42:19: Context: 'BindContract.copyWith' is defined here.
+  BindContract<T> copyWith({
+                  ^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_core-2.0.0/lib/src/di/injector.dart:8:7: Error: The non-abstract class 'InjectorImpl' is missing implementations for these members:
+ - Injector.getBind
+Try to either
+ - provide an implementation,
+ - inherit an implementation from a superclass or mixin,
+ - mark the class as abstract, or
+ - provide a 'noSuchMethod' implementation.
+
+class InjectorImpl<T> extends Injector<T> {
+      ^^^^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/injector.dart:11:16: Context: 'Injector.getBind' is defined here.
+  BindEntry<B> getBind<B extends Object>();
+               ^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:25:6: Error: The return type of the method 'WidgetModule.getBind' is 'T?', which does not match the return type, 'BindEntry<T>?', of the overridden method, 'BindContextImpl.getBind'.
+- 'BindEntry' is from 'package:modular_interfaces/src/di/bind.dart' ('/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart').
+Change to a subtype of 'BindEntry<T>?'.
+
+  T? getBind<T extends Object>(Injector injector) {
+     ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_core-2.0.0/lib/src/di/bind_context.dart:48:17: Context: This is the overridden method ('getBind').
+  BindEntry<T>? getBind<T extends Object>(Injector injector) {
+                ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_core-2.0.0/lib/src/di/injector.dart:12:16: Error: The return type of the method 'InjectorImpl.get' is 'BindEntry<B>', which does not match the return type, 'B', of the overridden method, 'Injector.get'.
+- 'BindEntry' is from 'package:modular_interfaces/src/di/bind.dart' ('/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart').
+
+Change to a subtype of 'B'.
+  BindEntry<B> get<B extends Object>() {
+               ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/injector.dart:8:5: Context: This is the overridden method ('get').
+  B get<B extends Object>();
+    ^
+
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_core-2.0.0/lib/src/di/injector.dart:129:8: Error: The method 'InjectorImpl.removeBindContext' has fewer named arguments than those of overridden method 'Injector.removeBindContext'.
+  void removeBindContext<B extends BindContext>() {
+
+       ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/injector.dart:33:8: Context: This is the overridden method ('removeBindContext').
+
+  void removeBindContext<T extends BindContext>({Type? type});
+       ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/modular_base.dart:178:7: Error: The method 'setDisposeResolver' isn't defined for the class 'ModularBase'.
+- 'ModularBase' is from 'package:flutter_modular/src/presenter/modular_base.dart' ('/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/modular_base.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'setDisposeResolver'.
+
+      setDisposeResolver(disposeBindFunction);
+      ^^^^^^^^^^^^^^^^^^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:26:24: Error: A value of type 'BindEntry<T>?' can't be returned from a function with return type 'T?'.
+- 'BindEntry' is from 'package:modular_interfaces/src/di/bind.dart' ('/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/modular_interfaces-2.0.2/lib/src/di/bind.dart').
+    return _fakeModule.getBind<T>(injector);
+                       ^
+/C:/Users/Barba/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_modular-4.5.1+1/lib/src/presenter/widgets/widget_module.dart:43:12: Error: 'SingletonBind' isn't a type.
+      List<SingletonBind<Object>> singletons, Injector injector) {
+           ^^^^^^^^^^^^^
+
+FAILURE: Build failed with an exception.
+* Where:
+Script 'c:\fvm\versions\2.10.4\packages\flutter_tools\gradle\flutter.gradle' line: 1102
+
+* What went wrong:
+Execution failed for task ':app:compileFlutterBuildDebug'.
+> Process 'command 'c:\fvm\versions\2.10.4\bin\flutter.bat'' finished with non-zero exit value 1
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 20s
+Exception: Gradle task assembleDebug failed with exit code 1
+Exited (sigterm)
