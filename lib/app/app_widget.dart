@@ -14,14 +14,13 @@ class AppWidget extends StatelessWidget {
       builder: (_, __) => MaterialApp.router(
         title: 'Cuidapet',
         debugShowCheckedModeBanner: false,
-        builder: (context, child){
+        builder: (context, child) {
           return asuka.builder(context, child);
         },
         theme: ThemeData(primarySwatch: Colors.blue),
         routeInformationParser: Modular.routeInformationParser,
         routerDelegate: Modular.routerDelegate,
       ),
-);
+    );
   }
 }
-
