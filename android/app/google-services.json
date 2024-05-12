@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240070564391",
+    "project_id": "cuida-pet-e0af9",
+    "storage_bucket": "cuida-pet-e0af9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240070564391:android:37fc0166dcb40fad5f8c02",
+        "android_client_info": {
+          "package_name": "br.com.barbatech.cuidapet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb-q9M5MYh741dDgq_Rb85wzRiLpYhhy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
