@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../core/rest_client/dio/dio_rest_client.dart';
+import '../../core/rest_client/rest_client.dart';
 import 'auth/auth_store.dart';
 
 class CoreModule extends Module {
@@ -7,6 +9,10 @@ class CoreModule extends Module {
   List<Bind> get binds => [
         Bind.lazySingleton(
           (i) => AuthStore(),
+          export: true,
+        ),
+        Bind.lazySingleton<RestClient>(
+          (i) => DioRestClient(),
           export: true,
         ),
       ];
