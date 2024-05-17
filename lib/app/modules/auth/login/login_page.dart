@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
-import '../../../core/helpers/environments.dart';
 import '../../../core/ui/extension/size_screen_extension.dart';
 import '../../../core/ui/extension/theme_extension.dart';
 import '../../../core/ui/icons/cuidapet_icons.dart';
