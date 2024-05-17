@@ -26,7 +26,12 @@ class _LoginFormState extends State<_LoginForm> {
           ),
           CuidapetDefaultButton(
             label: 'Entrar',
-            onPressed: () {},
+            onPressed: () {
+              Loader.show();
+              Future.delayed(const Duration(seconds: 2), () {
+                Loader.hide();
+              });
+            },
           ),
         ],
       ),

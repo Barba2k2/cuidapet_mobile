@@ -9,6 +9,7 @@ import '../../../core/ui/extension/theme_extension.dart';
 import '../../../core/ui/icons/cuidapet_icons.dart';
 import '../../../core/ui/widgets/cuidapet_default_button.dart';
 import '../../../core/ui/widgets/cuidapet_text_form_field.dart';
+import '../../../core/ui/widgets/loader.dart';
 import '../../../core/ui/widgets/rounded_button_with_icon.dart';
 
 part 'widgets/login_form.dart';
