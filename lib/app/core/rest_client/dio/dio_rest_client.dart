@@ -8,25 +8,36 @@ import '../rest_client_response.dart';
 
 class DioRestClient implements RestClient {
   late final Dio _dio;
-
-  final _defaultOptions = BaseOptions(
-    baseUrl: Environments.param(Constants.ENV_BASE_URL_KEY).toString(),
-    connectTimeout: Duration(
-      milliseconds: int.parse(
-        Constants.ENV_REST_CLIENT_CONNECT_TIMEOUT_KEY,
-      ),
-    ),
-    receiveTimeout: Duration(
-      milliseconds: int.parse(
-        Constants.ENV_REST_CLIENT_RECEIVE_TIMEOUT_KEY,
-      ),
-    ),
-  );
+  late final BaseOptions _defaultOptions;
 
   DioRestClient({
     BaseOptions? baseOptions,
   }) {
-    _dio = Dio(baseOptions ?? _defaultOptions);
+    _initializeDefaultOptions().then((defaultOptions) {
+      _defaultOptions = defaultOptions;
+      _dio = Dio(baseOptions ?? _defaultOptions);
+    });
+  }
+
+  Future<BaseOptions> _initializeDefaultOptions() async {
+    final baseUrl = await Environments.param(Constants.ENV_BASE_URL_KEY) ?? '';
+    final connectTimeoutString = await Environments.param(
+          Constants.ENV_REST_CLIENT_CONNECT_TIMEOUT_KEY,
+        ) ??
+        '5000';
+    final receiveTimeoutString = await Environments.param(
+          Constants.ENV_REST_CLIENT_RECEIVE_TIMEOUT_KEY,
+        ) ??
+        '5000';
+
+    final connectTimeout = int.tryParse(connectTimeoutString) ?? 5000;
+    final receiveTimeout = int.tryParse(receiveTimeoutString) ?? 5000;
+
+    return BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: Duration(milliseconds: connectTimeout),
+      receiveTimeout: Duration(milliseconds: receiveTimeout),
+    );
   }
 
   @override
