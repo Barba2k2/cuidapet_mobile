@@ -41,4 +41,40 @@ class UserServiceImpl implements UserService {
       throw Failure(message: 'Erro ao cadastrar usuário no Firebase');
     }
   }
+
+  @override
+  Future<void> login(String email, String password) async {
+    try {
+      final firebaseAuth = FirebaseAuth.instance;
+      final loginMethods = await firebaseAuth.fetchSignInMethodsForEmail(email);
+      if (loginMethods.isEmpty) {
+        throw UserExistsException();
+      }
+
+      if (loginMethods.contains('password')) {
+        final userCredential = await firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        final userVerified = userCredential.user?.emailVerified ?? false;
+
+        if (!userVerified) {
+          userCredential.user?.sendEmailVerification();
+          throw Failure(
+            message: 'E-mail não confirmado, por favor, verifique seu e-mail',
+          );
+        }
+      } else {
+        _log.error("Login by password hasn't finded");
+        throw Failure(
+          message:
+              'Login não pode ser feito por e-mail e senha, por favor, utilize outro método',
+        );
+      }
+    } on FirebaseAuthException catch (e, s) {
+      _log.error('User or password invalid [FirebaseAuthError: ${e.code}]', e, s);
+      throw Failure(message: 'Usuário ou senha inválidos');
+    }
+  }
 }
