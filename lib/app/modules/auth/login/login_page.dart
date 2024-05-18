@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../../core/ui/extension/size_screen_extension.dart';
 import '../../../core/ui/extension/theme_extension.dart';
@@ -6,6 +8,7 @@ import '../../../core/ui/icons/cuidapet_icons.dart';
 import '../../../core/ui/widgets/cuidapet_default_button.dart';
 import '../../../core/ui/widgets/cuidapet_text_form_field.dart';
 import '../../../core/ui/widgets/rounded_button_with_icon.dart';
+import 'login_controller.dart';
 
 part 'widgets/login_form.dart';
 part 'widgets/login_register_buttons.dart';
