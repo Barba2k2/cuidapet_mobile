@@ -8,19 +8,19 @@ class LoggerAppLoggerImpl implements AppLogger {
 
   @override
   void debug(message, [error, StackTrace? stackTrace]) =>
-      logger.d(message, error, stackTrace);
+      logger.d(message, error: error, stackTrace: stackTrace);
 
   @override
   void error(message, [error, StackTrace? stackTrace]) =>
-      logger.e(message, error, stackTrace);
+      logger.e(message, error: error, stackTrace: stackTrace);
 
   @override
   void info(message, [error, StackTrace? stackTrace]) =>
-      logger.i(message, error, stackTrace);
+      logger.i(message, error: error, stackTrace: stackTrace);
 
   @override
   void warning(message, [error, StackTrace? stackTrace]) =>
-      logger.w(message, error, stackTrace);
+      logger.w(message, error: error, stackTrace: stackTrace);
 
   @override
   void append(message) {
