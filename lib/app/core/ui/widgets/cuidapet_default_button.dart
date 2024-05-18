@@ -38,7 +38,7 @@ class CuidapetDefaultButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          foregroundColor: color ?? context.primaryColor,
+          backgroundColor: color ?? context.primaryColor,
         ),
         child: Text(
           label,
