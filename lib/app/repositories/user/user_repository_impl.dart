@@ -72,13 +72,13 @@ class UserRepositoryImpl implements UserRepository {
             'Unexpected format or missing access_token in response: $data',
           );
           throw Failure(
-            message: 'Erro no formato de resposta, tente novamente mais tarde.',
+            message: 'Erro ao realizar login, tente novamente mais tarde.',
           );
         }
       } else {
         _log.error('Unexpected response type: ${data.runtimeType}');
         throw Failure(
-          message: 'Erro no formato de resposta, tente novamente mais tarde.',
+          message: 'Erro ao realizar login, tente novamente mais tarde.',
         );
       }
     } on RestClientException catch (e, s) {

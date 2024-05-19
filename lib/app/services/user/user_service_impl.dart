@@ -74,10 +74,12 @@ class UserServiceImpl implements UserService {
         final accessToken = await _userRepository.login(email, password);
 
         await _saveAccessToken(accessToken);
-        final xx = await _localStorage.read<String>(
-          Constants.LOCAL_STORARE_ACCESS_TOKEN_KEY,
-        );
-        _log.info(xx);
+
+        
+        // final xx = await _localStorage.read<String>(
+        //   Constants.LOCAL_STORARE_ACCESS_TOKEN_KEY,
+        // );
+        // _log.info(xx);
       } else {
         _log.error("Login by password hasn't finded");
         throw Failure(

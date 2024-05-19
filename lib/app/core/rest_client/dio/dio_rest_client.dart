@@ -2,21 +2,40 @@ import 'package:dio/dio.dart';
 
 import '../../helpers/constants.dart';
 import '../../helpers/environments.dart';
+import '../../local_storage/local_storage.dart';
+import '../../logger/app_logger.dart';
 import '../rest_client.dart';
 import '../rest_client_exception.dart';
 import '../rest_client_response.dart';
+import 'interceptors/auth_interceptors.dart';
 
 class DioRestClient implements RestClient {
   late final Dio _dio;
   late final BaseOptions _defaultOptions;
 
   DioRestClient({
+    required LocalStorage localStorage,
+    required AppLogger log,
     BaseOptions? baseOptions,
   }) {
-    _initializeDefaultOptions().then((defaultOptions) {
-      _defaultOptions = defaultOptions;
-      _dio = Dio(baseOptions ?? _defaultOptions);
-    });
+    _initializeDefaultOptions().then(
+      (defaultOptions) {
+        _defaultOptions = defaultOptions;
+        _dio = Dio(baseOptions ?? _defaultOptions);
+        _dio.interceptors.addAll(
+          [
+            AuthInterceptors(
+              localStorage: localStorage,
+              log: log,
+            ),
+            LogInterceptor(
+              requestBody: true,
+              responseBody: true,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<BaseOptions> _initializeDefaultOptions() async {
@@ -42,13 +61,13 @@ class DioRestClient implements RestClient {
 
   @override
   RestClient auth() {
-    _defaultOptions.extra['auth_required'] = true;
+    _defaultOptions.extra[Constants.REST_CLIENT_AUTH_REQUIRED_KEY] = true;
     return this;
   }
 
   @override
   RestClient unAuth() {
-    _defaultOptions.extra['auth_required'] = false;
+    _defaultOptions.extra[Constants.REST_CLIENT_AUTH_REQUIRED_KEY] = false;
     return this;
   }
 
