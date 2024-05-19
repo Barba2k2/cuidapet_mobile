@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../core/exceptions/failure.dart';
 import '../../core/exceptions/user_exists_exception.dart';
+import '../../core/helpers/constants.dart';
+import '../../core/local_storage/local_storage.dart';
 import '../../core/logger/app_logger.dart';
 import '../../repositories/user/user_repository.dart';
 import './user_service.dart';
@@ -9,12 +11,15 @@ import './user_service.dart';
 class UserServiceImpl implements UserService {
   final UserRepository _userRepository;
   final AppLogger _log;
+  final LocalStorage _localStorage;
 
   UserServiceImpl({
     required UserRepository userRepository,
     required AppLogger log,
+    required LocalStorage localStorage,
   })  : _userRepository = userRepository,
-        _log = log;
+        _log = log,
+        _localStorage = localStorage;
 
   @override
   Future<void> register(String email, String password) async {
@@ -65,6 +70,14 @@ class UserServiceImpl implements UserService {
             message: 'E-mail não confirmado, por favor, verifique seu e-mail',
           );
         }
+
+        final accessToken = await _userRepository.login(email, password);
+
+        await _saveAccessToken(accessToken);
+        final xx = await _localStorage.read<String>(
+          Constants.LOCAL_STORARE_ACCESS_TOKEN_KEY,
+        );
+        _log.info(xx);
       } else {
         _log.error("Login by password hasn't finded");
         throw Failure(
@@ -73,8 +86,15 @@ class UserServiceImpl implements UserService {
         );
       }
     } on FirebaseAuthException catch (e, s) {
-      _log.error('User or password invalid [FirebaseAuthError: ${e.code}]', e, s);
+      _log.error(
+          'User or password invalid [FirebaseAuthError: ${e.code}]', e, s);
       throw Failure(message: 'Usuário ou senha inválidos');
     }
   }
+
+  Future<void> _saveAccessToken(String accessToken) =>
+      _localStorage.write<String>(
+        Constants.LOCAL_STORARE_ACCESS_TOKEN_KEY,
+        accessToken,
+      );
 }
