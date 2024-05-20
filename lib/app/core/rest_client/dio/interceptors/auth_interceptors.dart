@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../modules/core/auth/auth_store.dart';
 import '../../../helpers/constants.dart';
 import '../../../local_storage/local_storage.dart';
 import '../../../logger/app_logger.dart';
@@ -7,12 +9,15 @@ import '../../../logger/app_logger.dart';
 class AuthInterceptors extends Interceptor {
   final LocalStorage _localStorage;
   final AppLogger _log;
+  final AuthStore _authStore;
 
   AuthInterceptors({
     required LocalStorage localStorage,
     required AppLogger log,
+    required AuthStore authStore,
   })  : _localStorage = localStorage,
-        _log = log;
+        _log = log,
+        _authStore = authStore;
 
   @override
   Future<void> onRequest(
@@ -28,6 +33,7 @@ class AuthInterceptors extends Interceptor {
       );
 
       if (accessToken == null) {
+        _authStore.logout();
         return handler.reject(
           DioException(
             requestOptions: options,

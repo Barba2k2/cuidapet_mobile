@@ -4,13 +4,13 @@ import 'home_page.dart';
 
 class HomeModule extends Module {
   @override
-  List<Bind> get binds => [];
+  final List<Bind> binds = [];
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute(
-          '/home',
-          child: (context, args) => const HomePage(),
-        ),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(
+      Modular.initialRoute,
+      child: (_, args) => const HomePage(),
+    ),
+  ];
 }
