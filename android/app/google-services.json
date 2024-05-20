@@ -12,7 +12,20 @@
           "package_name": "br.com.barbatech.cuidapet"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "240070564391-7uijb6u0v8dp32473ljtnd8e9si53g03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.barbatech.cuidapet",
+            "certificate_hash": "f623719ad53a0c43ac3532b6aad38740e9047058"
+          }
+        },
+        {
+          "client_id": "240070564391-rro0m1n7njoto5h5i5blnl6ruakbt5r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCb-q9M5MYh741dDgq_Rb85wzRiLpYhhy4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240070564391-rro0m1n7njoto5h5i5blnl6ruakbt5r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

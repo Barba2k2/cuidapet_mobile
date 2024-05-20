@@ -7,6 +7,7 @@ import '../../../core/exceptions/user_not_exists_exception.dart';
 import '../../../core/logger/app_logger.dart';
 import '../../../core/ui/widgets/loader.dart';
 import '../../../core/ui/widgets/messages.dart';
+import '../../../models/social_login_type.dart';
 import '../../../services/user/user_service.dart';
 
 part 'login_controller.g.dart';
@@ -42,6 +43,20 @@ abstract class _LoginControllerBase with Store {
       _log.error('User already exists');
       Loader.hide();
       Messages.alert('Usuário já registrado, faça login com suas credenciais.');
+    }
+  }
+
+  Future<void> socialLogin(SocialLoginType socialLoginType) async {
+    try {
+      Loader.show();
+      await _userService.socialLogin(socialLoginType);
+      Loader.hide();
+    } on Failure catch (e, s) {
+      _log.error('Error on social login', e, s);
+      Loader.hide();
+      Messages.alert(
+        e.message ?? 'Erro ao realizar login',
+      );
     }
   }
 }
