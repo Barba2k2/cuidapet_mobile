@@ -142,8 +142,13 @@ class UserServiceImpl implements UserService {
       switch (socialLoginType) {
         case SocialLoginType.facebook:
           throw Failure(
-            message: 'Login com Facebook não implementado',
+            message: 'Login com Facebook não disponível no momento',
           );
+        // socialModel = await _socialRepository.facebookLogin();
+        // authCredential = FacebookAuthProvider.credential(
+        //   socialModel.accessToken,
+        // );
+        // break;
         case SocialLoginType.google:
           socialModel = await _socialRepository.googleLogin();
           authCredential = GoogleAuthProvider.credential(
@@ -178,13 +183,7 @@ class UserServiceImpl implements UserService {
     } on FirebaseAuthException catch (e, s) {
       _log.error('Error on login with $socialLoginType', e, s);
       throw Failure(message: 'Erro ao realizar login');
-    } on PlatformException catch (e, s) {
-      _log.error('PlatformException on login with $socialLoginType', e, s);
-      throw Failure(message: 'Erro ao realizar login');
-    } catch (e, s) {
-      _log.error('Unknown error on login with $socialLoginType', e, s);
-      throw Failure(message: 'Erro desconhecido ao realizar login');
-    }
+    } 
   }
 
   String _getMethodToSocialLoginType(SocialLoginType socialLoginType) {
