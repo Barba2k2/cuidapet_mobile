@@ -51,11 +51,12 @@ abstract class _LoginControllerBase with Store {
       Loader.show();
       await _userService.socialLogin(socialLoginType);
       Loader.hide();
+      Modular.to.navigate('/auth/');
     } on Failure catch (e, s) {
       _log.error('Error on social login', e, s);
       Loader.hide();
       Messages.alert(
-        e.message ?? 'Erro ao realizar login',
+        e.message ?? 'Erro ao realizar login social',
       );
     }
   }
