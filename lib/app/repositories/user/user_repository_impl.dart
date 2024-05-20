@@ -9,6 +9,7 @@ import '../../core/logger/app_logger.dart';
 import '../../core/rest_client/rest_client.dart';
 import '../../core/rest_client/rest_client_exception.dart';
 import '../../models/confirm_login_model.dart';
+import '../../models/user_model.dart';
 import './user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -111,10 +112,44 @@ class UserRepositoryImpl implements UserRepository {
         },
       );
 
-      return ConfirmLoginModel.fromMap(result.data);
+      // Decodificar a resposta se for uma string JSON
+      final data =
+          result.data is String ? jsonDecode(result.data) : result.data;
+
+      if (data is Map<String, dynamic>) {
+        return ConfirmLoginModel.fromMap(data);
+      } else {
+        _log.error('Unexpected response type: ${data.runtimeType}');
+        throw Failure(
+          message: 'Erro no formato de resposta, tente novamente mais tarde.',
+        );
+      }
     } on RestClientException catch (e, s) {
       _log.error('Error on try confirm login', e, s);
       throw Failure(message: 'Erro ao confirmar login');
+    }
+  }
+
+  @override
+  Future<UserModel> getUserLogged() async {
+    try {
+      final result = await _restClient.get('/user/');
+
+      // Decodificar a resposta se for uma string JSON
+      final data =
+          result.data is String ? jsonDecode(result.data) : result.data;
+
+      if (data is Map<String, dynamic>) {
+        return UserModel.fromMap(data);
+      } else {
+        _log.error('Unexpected response type: ${data.runtimeType}');
+        throw Failure(
+          message: 'Erro no formato de resposta, tente novamente mais tarde.',
+        );
+      }
+    } on RestClientException catch (e, s) {
+      _log.error('Error on getUserLogged', e, s);
+      throw Failure(message: 'Erro ao obter dados do usuário');
     }
   }
 }

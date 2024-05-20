@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:mobx/mobx.dart';
 
 import '../../../core/exceptions/failure.dart';
+import '../../../core/exceptions/user_exists_exception.dart';
 import '../../../core/exceptions/user_not_exists_exception.dart';
 import '../../../core/logger/app_logger.dart';
 import '../../../core/ui/widgets/loader.dart';
@@ -32,10 +32,14 @@ abstract class _LoginControllerBase with Store {
       _log.error(errorMessage, e, s);
       Loader.hide();
       Messages.alert(errorMessage);
-    }on UserNotExistsException {
+    } on UserNotExistsException {
       _log.error('User not find');
       Loader.hide();
       Messages.alert('Usuário não cadastrado');
+    } on UserExistsException {
+      _log.error('User already exists');
+      Loader.hide();
+      Messages.alert('Usuário já registrado, faça login com suas credenciais.');
     }
   }
 }

@@ -79,6 +79,8 @@ class UserServiceImpl implements UserService {
         await _saveAccessToken(accessToken);
 
         await _confirmLogin();
+
+        await _getUserData();
       } else {
         _log.error("Login by password hasn't finded");
         throw Failure(
@@ -110,6 +112,15 @@ class UserServiceImpl implements UserService {
     await _localSecureStorage.write(
       Constants.LOCAL_STORARE_REFRESH_TOKEN_KEY,
       confirmLoginModel.refreshToken,
+    );
+  }
+
+  Future<void> _getUserData() async {
+    final userModel = await _userRepository.getUserLogged();
+
+    await _localStorage.write<String>(
+      Constants.LOCAL_STORARE_USER_LOGGED_DATA_KEY,
+      userModel.toJson(),
     );
   }
 }
