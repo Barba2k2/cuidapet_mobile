@@ -9,6 +9,8 @@ class Constants {
 
   static const LOCAL_STORARE_ACCESS_TOKEN_KEY =
       '/LOCAL_STORARE_ACCESS_TOKEN_KEY/';
+  static const LOCAL_STORARE_REFRESH_TOKEN_KEY =
+      '/LOCAL_STORARE_REFRESH_TOKEN_KEY/';
 
   static const REST_CLIENT_AUTH_REQUIRED_KEY = 'auth_required';
 }
