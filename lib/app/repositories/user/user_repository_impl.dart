@@ -26,7 +26,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> register(String email, String password) async {
     try {
-      await _restClient.unAuth().post(
+      await _restClient.unauth().post(
         '/auth/register',
         data: {
           'email': email,
@@ -48,7 +48,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<String> login(String login, String password) async {
     try {
-      final result = await _restClient.unAuth().post(
+      final result = await _restClient.unauth().post(
         '/auth/',
         data: {
           'login': login,
@@ -152,7 +152,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<String> loginSocial(SocialNetworkModel model) async {
     try {
-      final result = await _restClient.unAuth().post(
+      final result = await _restClient.unauth().post(
         '/auth/',
         data: {
           'login': model.email,

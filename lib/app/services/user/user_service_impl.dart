@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 
 import '../../core/exceptions/failure.dart';
 import '../../core/exceptions/user_exists_exception.dart';
-import '../../core/exceptions/user_not_exists_exception.dart';
 import '../../core/helpers/constants.dart';
 import '../../core/local_storage/local_storage.dart';
 import '../../core/logger/app_logger.dart';
@@ -17,14 +15,14 @@ class UserServiceImpl implements UserService {
   final UserRepository _userRepository;
   final AppLogger _log;
   final LocalStorage _localStorage;
-  final LocalSecureStorage _localSecureStorage;
+  final LocalSecurityStorage _localSecureStorage;
   final SocialRepository _socialRepository;
 
   UserServiceImpl({
     required UserRepository userRepository,
     required AppLogger log,
     required LocalStorage localStorage,
-    required LocalSecureStorage localSecureStorage,
+    required LocalSecurityStorage localSecureStorage,
     required SocialRepository socialRepository,
   })  : _userRepository = userRepository,
         _log = log,
@@ -183,7 +181,7 @@ class UserServiceImpl implements UserService {
     } on FirebaseAuthException catch (e, s) {
       _log.error('Error on login with $socialLoginType', e, s);
       throw Failure(message: 'Erro ao realizar login');
-    } 
+    }
   }
 
   String _getMethodToSocialLoginType(SocialLoginType socialLoginType) {

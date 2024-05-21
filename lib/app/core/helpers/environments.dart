@@ -13,6 +13,13 @@ class Environments {
     }
   }
 
+  static String? paramSync(String paramName) {
+    if (!kReleaseMode) {
+      return dotenv.env[paramName];
+    }
+    throw UnsupportedError('paramSync is not supported in release mode');
+  }
+
   static Future<void> loadEnvs() async {
     if (kReleaseMode) {
       final remoteConfig = FirebaseRemoteConfig.instance;
