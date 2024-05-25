@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class Environments {
   Environments._();
 
-  static Future<String?> param(String paramName) async {
+  static String? param(String paramName) {
     if (kReleaseMode) {
       return FirebaseRemoteConfig.instance.getString(paramName);
     } else {
