@@ -73,11 +73,11 @@ class _AddressPageState extends State<AddressPage> {
                 height: 20,
               ),
               Column(
-                children: [
-                  const _AddressItem(),
-                  const _AddressItem(),
-                  const _AddressItem(),
-                  const _AddressItem(),
+                children: const [
+                  _AddressItem(),
+                  _AddressItem(),
+                  _AddressItem(),
+                  _AddressItem(),
                 ],
               ),
             ],
