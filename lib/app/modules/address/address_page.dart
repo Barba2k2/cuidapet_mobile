@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../core/ui/extension/theme_extension.dart';
+import '../../models/place_model.dart';
 
 part 'widgets/address_item.dart';
+part 'widgets/address_search_widget.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -38,19 +43,9 @@ class _AddressPageState extends State<AddressPage> {
               const SizedBox(
                 height: 20,
               ),
-              Material(
-                elevation: 10,
-                borderRadius: BorderRadius.circular(20),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
+              const _AddressSearchWidget(),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               const ListTile(
                 leading: CircleAvatar(
