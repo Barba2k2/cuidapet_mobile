@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../life_cycle/controller_life_cycle.dart';
@@ -10,13 +11,11 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store, ControllerLifeCycle {
   @override
-  void onInit([Map<String, dynamic>? params]) {
-    log('OnInit called');
+  Future<void> onReady() async {
+    await _hasRegistredAddress();
   }
 
-  @override
-  void onReady() {
-    log('onReady called');
-    super.onReady();
+  Future<void> _hasRegistredAddress() async {
+    await Modular.to.pushNamed('/address/');
   }
 }

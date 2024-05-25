@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'modules/address/address_module.dart';
 import 'modules/auth/auth_module.dart';
 import 'modules/core/core_module.dart';
 import 'modules/home/home_module.dart';
@@ -22,6 +23,10 @@ class AppModule extends Module {
         ModuleRoute(
           '/home/',
           module: HomeModule(),
+        ),
+        ModuleRoute(
+          '/address/',
+          module: AddressModule(),
         ),
       ];
 }
