@@ -49,11 +49,11 @@ class DioRestClient implements RestClient {
   }
 
   Future<BaseOptions> _initializeOptions() async {
-    final baseUrl = await Environments.param(Constants.ENV_BASE_URL_KEY) ?? '';
-    final connectTimeoutString = await Environments.param(
+    final baseUrl = Environments.param(Constants.ENV_BASE_URL_KEY) ?? '';
+    final connectTimeoutString = Environments.param(
             Constants.ENV_REST_CLIENT_CONNECT_TIMEOUT_KEY) ??
         '0';
-    final receiveTimeoutString = await Environments.param(
+    final receiveTimeoutString = Environments.param(
             Constants.ENV_REST_CLIENT_RECEIVE_TIMEOUT_KEY) ??
         '0';
 

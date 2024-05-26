@@ -10,6 +10,6 @@ class AddressServiceImpl implements AddressService {
   }) : _addressRepository = addressRepository;
 
   @override
-  Future<List<PlaceModel>> findAddressByGooglePlaces1(String addressPattern) =>
+  Future<List<PlaceModel>> findAddressByGooglePlaces(String addressPattern) =>
       _addressRepository.findAddressByGooglePlaces(addressPattern);
 }

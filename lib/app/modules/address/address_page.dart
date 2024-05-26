@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../core/ui/extension/theme_extension.dart';
 import '../../models/place_model.dart';
+import 'widgets/address_search_widget/address_search_controller.dart';
 
 part 'widgets/address_item.dart';
-part 'widgets/address_search_widget.dart';
+part 'widgets/address_search_widget/address_search_widget.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -43,7 +46,11 @@ class _AddressPageState extends State<AddressPage> {
               const SizedBox(
                 height: 20,
               ),
-              const _AddressSearchWidget(),
+              _AddressSearchWidget(
+                addressSelectedCallback: (place) {
+                  log(place.address);
+                },
+              ),
               const SizedBox(
                 height: 30,
               ),
