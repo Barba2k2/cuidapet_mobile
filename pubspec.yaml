@@ -45,6 +45,9 @@ dependencies:
   synchronized: ^3.0.0+2
   path: ^1.8.1
 
+  geocoding: ^2.0.4
+  geolocator: ^9.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
