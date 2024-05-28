@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:mobx/mobx.dart';
 
 import '../../../core/ui/widgets/loader.dart';
@@ -23,17 +21,13 @@ abstract class AddressDetailControllerBase with Store {
   }) : _addressService = addressService;
 
   Future<void> saveAddress(PlaceModel placeModel, String additional) async {
-    try {
-      Loader.show();
-      final addressEntity = await _addressService.saveAddress(
-        placeModel,
-        additional,
-      );
-      _addressEntity = addressEntity;
+    Loader.show();
+    final addressEntity = await _addressService.saveAddress(
+      placeModel,
+      additional,
+    );
+    _addressEntity = addressEntity;
 
-      Loader.hide();
-    } catch (e, s) {
-      log('Error on AddressDetailController', error: e, stackTrace: s);
-    }
+    Loader.hide();
   }
 }

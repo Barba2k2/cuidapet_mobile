@@ -27,21 +27,15 @@ class AddressServiceImpl implements AddressService {
     PlaceModel placeModel,
     String additional,
   ) async {
-    try {
-      final addressEntity = AddressEntity(
-        address: placeModel.address,
-        lat: placeModel.lat,
-        lng: placeModel.lng,
-        additional: additional,
-      );
+    final addressEntity = AddressEntity(
+      address: placeModel.address,
+      lat: placeModel.lat,
+      lng: placeModel.lng,
+      additional: additional,
+    );
 
-      var addressId = await _addressRepository.saveAddress(addressEntity);
-      log('Address saved with id $addressId');
+    var addressId = await _addressRepository.saveAddress(addressEntity);
 
-      return addressEntity.copyWith(id: addressId);
-    } catch (e, s) {
-      log('Error on saveAddress', error: e, stackTrace: s);
-      throw Exception('Error on AddressServiceImpl');
-    }
+    return addressEntity.copyWith(id: addressId);
   }
 }
