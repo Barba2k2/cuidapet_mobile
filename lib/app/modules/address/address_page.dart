@@ -50,7 +50,7 @@ class _AddressPageState extends State<AddressPage> {
               _AddressSearchWidget(
                 addressSelectedCallback: (place) {
                   Modular.to.pushNamed(
-                    '/address/detail',
+                    '/address/detail/',
                     arguments: place,
                   );
                 },

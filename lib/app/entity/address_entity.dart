@@ -27,11 +27,11 @@ class AddressEntity {
 
   factory AddressEntity.fromMap(Map<String, dynamic> map) {
     return AddressEntity(
-      id: map['id'] != null ? map['id'] as int : null,
-      address: map['address'] as String,
-      lat: map['lat'] as double,
-      lng: map['lng'] as double,
-      additional: map['additional'] as String,
+      id: map['id']?.toInt(),
+      address: map['address'] ?? '',
+      lat: map['lat']?.toDouble() ?? 0.0,
+      lng: map['lng']?.toDouble() ?? 0.0,
+      additional: map['additional'] ?? '',
     );
   }
 

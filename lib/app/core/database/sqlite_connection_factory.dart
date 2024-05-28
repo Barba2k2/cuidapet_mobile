@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
-
 import 'sqlite_migration_factory.dart';
 
 class SqliteConnectionFactory {
@@ -20,26 +21,33 @@ class SqliteConnectionFactory {
   }
 
   Future<Database> openConnection() async {
-    if (_db == null) {
-      await _lock.synchronized(
-        () async {
-          if (_db == null) {
-            final databsePath = await getDatabasesPath();
-            final pathDatabse = join(databsePath, _databaseName);
+    try {
+      if (_db == null) {
+        await _lock.synchronized(
+          () async {
+            if (_db == null) {
+              final databasePath = await getDatabasesPath();
+              final pathDatabase = join(databasePath, _databaseName);
 
-            _db = await openDatabase(
-              pathDatabse,
-              version: _version,
-              onConfigure: _onConfigure,
-              onCreate: _onCreate,
-              onUpgrade: _onUpgrade,
-            );
-          }
-        },
-      );
+              _db = await openDatabase(
+                pathDatabase,
+                version: _version,
+                onConfigure: _onConfigure,
+                onCreate: _onCreate,
+                onUpgrade: _onUpgrade,
+              );
+
+              log('Database created at $pathDatabase');
+            }
+          },
+        );
+      }
+
+      return _db!;
+    } catch (e, s) {
+      log('Error on openConnection', error: e, stackTrace: s);
+      rethrow;
     }
-
-    return _db!;
   }
 
   Future<void> _onConfigure(Database db) async {
@@ -47,15 +55,20 @@ class SqliteConnectionFactory {
   }
 
   void _onCreate(Database db, int version) {
-    final batch = db.batch();
+    try {
+      final batch = db.batch();
 
-    final migrations = SqliteMigrationFactory().getCreateMigration();
+      final migrations = SqliteMigrationFactory().getCreateMigration();
 
-    for (var migration in migrations) {
-      migration.create(batch);
+      for (var migration in migrations) {
+        migration.create(batch);
+      }
+
+      batch.commit();
+      log('Database created with success!');
+    } catch (e, s) {
+      log('Error on create database', error: e, stackTrace: s);
     }
-
-    batch.commit();
   }
 
   void _onUpgrade(Database db, int oldVersion, int newVersion) {
@@ -68,10 +81,12 @@ class SqliteConnectionFactory {
     }
 
     batch.commit();
+    log('Database updated with success!');
   }
 
   void closeConnection() {
     _db?.close();
     _db = null;
+    log('Connection closed!');
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../entity/address_entity.dart';
 import '../../models/place_model.dart';
 import '../../repositories/address/address_repository.dart';
@@ -25,15 +27,21 @@ class AddressServiceImpl implements AddressService {
     PlaceModel placeModel,
     String additional,
   ) async {
-    final addressEntity = AddressEntity(
-      address: placeModel.address,
-      lat: placeModel.lat,
-      lng: placeModel.lng,
-      additional: additional,
-    );
+    try {
+      final addressEntity = AddressEntity(
+        address: placeModel.address,
+        lat: placeModel.lat,
+        lng: placeModel.lng,
+        additional: additional,
+      );
 
-    var addressId = await _addressRepository.saveAddress(addressEntity);
+      var addressId = await _addressRepository.saveAddress(addressEntity);
+      log('Address saved with id $addressId');
 
-    return addressEntity.copyWith(id: addressId);
+      return addressEntity.copyWith(id: addressId);
+    } catch (e, s) {
+      log('Error on saveAddress', error: e, stackTrace: s);
+      throw Exception('Error on AddressServiceImpl');
+    }
   }
 }

@@ -1,20 +1,27 @@
-import 'package:sqflite_common/sqlite_api.dart';
+import 'dart:developer';
 
+import 'package:sqflite/sqflite.dart';
 import 'migration.dart';
 
 class MigrationV1 extends Migration {
   @override
   void create(Batch batch) {
-    batch.execute('''
+    try {
+      log('Creating migration v1');
+      batch.execute(
+        '''
         CREATE TABLE address (
           id INTEGER PRIMARY KEY AUTOINCREMENT, 
           address TEXT NOT NULL, 
-          lag TEXT, 
-          lng TEXT, 
+          lat REAL, 
+          lng REAL, 
           additional TEXT
         )
       ''',
-    );
+      );
+    } catch (e, s) {
+      log('Error on create migration v1', error: e, stackTrace: s);
+    }
   }
 
   @override

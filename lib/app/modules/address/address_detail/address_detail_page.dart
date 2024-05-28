@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../../core/ui/extension/size_screen_extension.dart';
 import '../../../core/ui/extension/theme_extension.dart';
 import '../../../core/ui/widgets/cuidapet_default_button.dart';
 import '../../../models/place_model.dart';
+import 'address_detail_controller.dart';
 
 class AddressDetailPage extends StatefulWidget {
   final PlaceModel place;
@@ -16,6 +19,30 @@ class AddressDetailPage extends StatefulWidget {
 }
 
 class _AddressDetailPageState extends State<AddressDetailPage> {
+  final _additionalEC = TextEditingController();
+  final controller = Modular.get<AddressDetailController>();
+  late final ReactionDisposer addressEntityDisposer;
+
+  @override
+  void initState() {
+    super.initState();
+    addressEntityDisposer = reaction(
+      (_) => controller.addressEntity,
+      (addressEntity) {
+        if (addressEntity != null) {
+          Navigator.pop(context, addressEntity);
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _additionalEC.dispose();
+    addressEntityDisposer();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +111,7 @@ class _AddressDetailPageState extends State<AddressDetailPage> {
               decoration: const InputDecoration(
                 labelText: 'Complemento',
               ),
+              controller: _additionalEC,
             ),
           ),
           SizedBox(
@@ -91,7 +119,12 @@ class _AddressDetailPageState extends State<AddressDetailPage> {
             height: 60.h,
             child: CuidapetDefaultButton(
               label: 'Salvar',
-              onPressed: () {},
+              onPressed: () {
+                controller.saveAddress(
+                  widget.place,
+                  _additionalEC.text,
+                );
+              },
             ),
           ),
           const SizedBox(
