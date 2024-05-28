@@ -11,7 +11,7 @@ class MigrationV1 extends Migration {
           address TEXT NOT NULL, 
           lag TEXT, 
           lng TEXT, 
-          additional TEXT,
+          additional TEXT
         )
       ''',
     );

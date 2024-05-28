@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "240070564391",
-    "project_id": "cuida-pet-e0af9",
-    "storage_bucket": "cuida-pet-e0af9.appspot.com"
+    "project_number": "942024781728",
+    "project_id": "cuidapet-829de",
+    "storage_bucket": "cuidapet-829de.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:240070564391:android:37fc0166dcb40fad5f8c02",
+        "mobilesdk_app_id": "1:942024781728:android:df731092087bfbb75f7ec5",
         "android_client_info": {
           "package_name": "br.com.barbatech.cuidapet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "240070564391-7uijb6u0v8dp32473ljtnd8e9si53g03.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "br.com.barbatech.cuidapet",
-            "certificate_hash": "f623719ad53a0c43ac3532b6aad38740e9047058"
-          }
-        },
-        {
-          "client_id": "240070564391-rro0m1n7njoto5h5i5blnl6ruakbt5r6.apps.googleusercontent.com",
+          "client_id": "942024781728-e27rsmc3vtk5cgnjgu259vk51er76d3k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCb-q9M5MYh741dDgq_Rb85wzRiLpYhhy4"
+          "current_key": "AIzaSyDyf-UuIoCaaNjwm2HkIGKELa6ZaRl-mGw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "240070564391-rro0m1n7njoto5h5i5blnl6ruakbt5r6.apps.googleusercontent.com",
+              "client_id": "942024781728-e27rsmc3vtk5cgnjgu259vk51er76d3k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
