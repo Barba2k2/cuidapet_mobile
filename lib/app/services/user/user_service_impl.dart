@@ -101,6 +101,9 @@ class UserServiceImpl implements UserService {
         s,
       );
       throw Failure(message: 'Usuário ou senha inválidos');
+    } on FirebaseException catch (e, s) {
+      _log.error('Error on login with email and password', e, s);
+      throw Failure(message: 'Erro ao realizar login');
     }
   }
 
