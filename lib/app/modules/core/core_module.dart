@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../core/database/sqlite_connection_factory.dart';
 import '../../core/local_storage/local_storage.dart';
 import '../../core/local_storage/secure_storage/flutter_secure_storage_local_storage_impl.dart';
 import '../../core/local_storage/shared_preferences/shared_preferences_local_storage_impl.dart';
@@ -16,6 +17,10 @@ import 'auth/auth_store.dart';
 class CoreModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.lazySingleton(
+          (i) => SqliteConnectionFactory(),
+          export: true,
+        ),
         Bind.lazySingleton<AppLogger>(
           (i) => LoggerAppLoggerImpl(),
           export: true,

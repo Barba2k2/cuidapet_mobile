@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import '../../core/database/sqlite_connection_factory.dart';
 import '../../core/ui/extension/theme_extension.dart';
 import '../../models/place_model.dart';
 import 'widgets/address_search_widget/address_search_controller.dart';
@@ -22,6 +23,7 @@ class AddressPage extends StatefulWidget {
 class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
+    Modular.get<SqliteConnectionFactory>().openConnection();
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
