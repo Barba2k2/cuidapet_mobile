@@ -9,8 +9,8 @@ class MigrationV1 extends Migration {
         CREATE TABLE address (
           id INTEGER PRIMARY KEY AUTOINCREMENT, 
           address TEXT NOT NULL, 
-          lat REAL, 
-          lng REAL, 
+          lat TEXT, 
+          lng TEXT, 
           additional TEXT
         )
       ''',

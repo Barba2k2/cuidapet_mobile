@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-import '../../core/database/sqlite_connection_factory.dart';
 import '../../core/ui/extension/theme_extension.dart';
+import '../../life_cycle/page_life_cycle_state.dart';
 import '../../models/place_model.dart';
+import 'address_controller.dart';
 import 'widgets/address_search_widget/address_search_controller.dart';
 
 part 'widgets/address_item.dart';
@@ -20,7 +22,8 @@ class AddressPage extends StatefulWidget {
   State<AddressPage> createState() => _AddressPageState();
 }
 
-class _AddressPageState extends State<AddressPage> {
+class _AddressPageState
+    extends PageLifeCycleState<AddressController, AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,13 +81,18 @@ class _AddressPageState extends State<AddressPage> {
               const SizedBox(
                 height: 20,
               ),
-              Column(
-                children: const [
-                  _AddressItem(),
-                  _AddressItem(),
-                  _AddressItem(),
-                  _AddressItem(),
-                ],
+              Observer(
+                builder: (_) {
+                  return Column(
+                    children: controller.addresses
+                        .map(
+                          (a) => _ItemTile(
+                            address: a.address,
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
               ),
             ],
           ),
