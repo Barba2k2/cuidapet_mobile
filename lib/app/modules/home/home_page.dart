@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/rest_client/rest_client.dart';
 import '../../entity/address_entity.dart';
 import '../../life_cycle/page_life_cycle_state.dart';
 import '../../services/address/address_service.dart';
-import '../address/address_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,7 +47,7 @@ class _HomePageState extends PageLifeCycleState<HomeController, HomePage> {
             ),
             TextButton(
               onPressed: () async {
-                await Modular.to.pushNamed('/address/');
+                controller.goToAddressPage();
               },
               child: const Text('Go To Address'),
             ),
@@ -64,11 +64,23 @@ class _HomePageState extends PageLifeCycleState<HomeController, HomePage> {
             const SizedBox(
               height: 20,
             ),
-            Text(addressEntity?.address ?? 'Nenhum endereço selecionado'),
+            Observer(
+              builder: (_) {
+                return Text(
+                  addressEntity?.address ?? 'Nenhum endereço selecionado',
+                );
+              },
+            ),
             const SizedBox(
               height: 20,
             ),
-            Text(addressEntity?.additional ?? 'Nenhum complemento selecionado'),
+            Observer(
+              builder: (_) {
+                return Text(
+                  addressEntity?.additional ?? 'Nenhum complemento selecionado',
+                );
+              },
+            ),
           ],
         ),
       ),
