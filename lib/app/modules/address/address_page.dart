@@ -136,6 +136,9 @@ class _AddressPageState
                         .map(
                           (a) => _ItemTile(
                             address: a.address,
+                            onTap: () {
+                              controller.selectAddress(a);
+                            },
                           ),
                         )
                         .toList(),

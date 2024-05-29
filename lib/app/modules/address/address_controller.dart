@@ -109,6 +109,13 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
 
     if (address is PlaceModel) {
       _placeModel = address;
+    } else if (address is AddressEntity) {
+      selectAddress(address);
     }
+  }
+
+  Future<void> selectAddress(AddressEntity addressEntity) async {
+    await _addressService.selectAddress(addressEntity);
+    Modular.to.pop();
   }
 }

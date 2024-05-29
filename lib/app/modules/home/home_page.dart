@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/rest_client/rest_client.dart';
+import '../../entity/address_entity.dart';
 import '../../life_cycle/page_life_cycle_state.dart';
+import '../../services/address/address_service.dart';
+import '../address/address_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends PageLifeCycleState<HomeController, HomePage> {
+  AddressEntity? addressEntity;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +45,30 @@ class _HomePageState extends PageLifeCycleState<HomeController, HomePage> {
               },
               child: const Text('Update Refresh Token'),
             ),
+            TextButton(
+              onPressed: () async {
+                await Modular.to.pushNamed('/address/');
+              },
+              child: const Text('Go To Address'),
+            ),
+            TextButton(
+              onPressed: () async {
+                final address =
+                    await Modular.get<AddressService>().getAddressSelected();
+                setState(() {
+                  addressEntity = address;
+                });
+              },
+              child: const Text('Find Address'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(addressEntity?.address ?? 'Nenhum endereço selecionado'),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(addressEntity?.additional ?? 'Nenhum complemento selecionado'),
           ],
         ),
       ),

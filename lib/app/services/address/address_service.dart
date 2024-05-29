@@ -6,4 +6,6 @@ abstract class AddressService {
   Future<List<AddressEntity>> getAddress();
   Future<void> deleteAll();
   Future<AddressEntity> saveAddress(PlaceModel placeModel, String additional);
+  Future<void> selectAddress(AddressEntity addressEntity);
+  Future<AddressEntity?> getAddressSelected();  
 }
