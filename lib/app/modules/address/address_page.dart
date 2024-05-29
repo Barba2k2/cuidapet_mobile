@@ -94,9 +94,15 @@ class _AddressPageState
               const SizedBox(
                 height: 20,
               ),
-              _AddressSearchWidget(
-                addressSelectedCallback: (place) {
-                  controller.goToAddressDetail(place);
+              Observer(
+                builder: (_) {
+                  return _AddressSearchWidget(
+                    key: UniqueKey(),
+                    addressSelectedCallback: (place) {
+                      controller.goToAddressDetail(place);
+                    },
+                    place: controller.placeModel,
+                  );
                 },
               ),
               const SizedBox(

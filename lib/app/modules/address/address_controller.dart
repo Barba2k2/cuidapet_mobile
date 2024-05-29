@@ -14,6 +14,8 @@ part 'address_controller.g.dart';
 class AddressController = AddressControllerBase with _$AddressController;
 
 abstract class AddressControllerBase extends ControllerLifeCycle with Store {
+  final AddressService _addressService;
+
   @readonly
   var _addresses = <AddressEntity>[];
 
@@ -25,8 +27,6 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
 
   @readonly
   PlaceModel? _placeModel;
-
-  final AddressService _addressService;
 
   AddressControllerBase({
     required AddressService addressService,
@@ -78,14 +78,14 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
     Loader.show();
 
     final position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: LocationAccuracy.best,
     );
 
     final placemark = await placemarkFromCoordinates(
       position.latitude,
       position.longitude,
     );
-    
+
     final place = placemark.first;
 
     final address = '${place.thoroughfare} ${place.subThoroughfare}';
@@ -101,10 +101,14 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
     goToAddressDetail(placeModel);
   }
 
-  void goToAddressDetail(PlaceModel place) {
-    Modular.to.pushNamed(
+  Future<void> goToAddressDetail(PlaceModel place) async {
+    final address = await Modular.to.pushNamed(
       '/address/detail/',
       arguments: place,
     );
+
+    if (address is PlaceModel) {
+      _placeModel = address;
+    }
   }
 }

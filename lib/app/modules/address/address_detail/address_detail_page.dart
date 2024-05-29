@@ -97,10 +97,13 @@ class _AddressDetailPageState extends State<AddressDetailPage> {
             child: TextFormField(
               readOnly: true,
               initialValue: widget.place.address,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Endereço',
-                suffixIcon: Icon(
-                  Icons.edit_location_alt,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(widget.place);
+                  },
+                  icon: const Icon(Icons.edit_location_alt),
                 ),
               ),
             ),
