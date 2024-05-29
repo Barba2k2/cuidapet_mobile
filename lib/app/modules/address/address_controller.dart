@@ -14,16 +14,19 @@ part 'address_controller.g.dart';
 class AddressController = AddressControllerBase with _$AddressController;
 
 abstract class AddressControllerBase extends ControllerLifeCycle with Store {
-  final AddressService _addressService;
+  @readonly
+  var _addresses = <AddressEntity>[];
 
   @readonly
-  List<AddressEntity> _addresses = [];
-
-  @readonly
-  bool _locationServiceUnavaliable = false;
+  var _locationServiceUnavailable = false;
 
   @readonly
   LocationPermission? _locationPermission;
+
+  @readonly
+  PlaceModel? _placeModel;
+
+  final AddressService _addressService;
 
   AddressControllerBase({
     required AddressService addressService,
@@ -43,29 +46,29 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
 
   @action
   Future<void> myLocation() async {
+    _locationPermission = null;
+    _locationServiceUnavailable = false;
+
     final serviceEnable = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnable) {
-      _locationServiceUnavaliable = true;
+      _locationServiceUnavailable = true;
       return;
     }
-
     final locationPermission = await Geolocator.checkPermission();
 
     switch (locationPermission) {
       case LocationPermission.denied:
         final permission = await Geolocator.requestPermission();
-
         if (permission == LocationPermission.denied ||
             permission == LocationPermission.deniedForever) {
           _locationPermission = permission;
           return;
         }
-
         break;
       case LocationPermission.deniedForever:
         _locationPermission = locationPermission;
-        break;
+        return;
       case LocationPermission.whileInUse:
       case LocationPermission.always:
       case LocationPermission.unableToDetermine:
@@ -73,14 +76,16 @@ abstract class AddressControllerBase extends ControllerLifeCycle with Store {
     }
 
     Loader.show();
+
     final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     final placemark = await placemarkFromCoordinates(
       position.latitude,
       position.longitude,
     );
-
+    
     final place = placemark.first;
 
     final address = '${place.thoroughfare} ${place.subThoroughfare}';

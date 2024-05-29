@@ -27,23 +27,23 @@ mixin _$AddressController on AddressControllerBase, Store {
     });
   }
 
-  late final _$_locationServiceUnavaliableAtom = Atom(
-      name: 'AddressControllerBase._locationServiceUnavaliable',
+  late final _$_locationServiceUnavailableAtom = Atom(
+      name: 'AddressControllerBase._locationServiceUnavailable',
       context: context);
 
-  bool get locationServiceUnavaliable {
-    _$_locationServiceUnavaliableAtom.reportRead();
-    return super._locationServiceUnavaliable;
+  bool get locationServiceUnavailable {
+    _$_locationServiceUnavailableAtom.reportRead();
+    return super._locationServiceUnavailable;
   }
 
   @override
-  bool get _locationServiceUnavaliable => locationServiceUnavaliable;
+  bool get _locationServiceUnavailable => locationServiceUnavailable;
 
   @override
-  set _locationServiceUnavaliable(bool value) {
-    _$_locationServiceUnavaliableAtom
-        .reportWrite(value, super._locationServiceUnavaliable, () {
-      super._locationServiceUnavaliable = value;
+  set _locationServiceUnavailable(bool value) {
+    _$_locationServiceUnavailableAtom
+        .reportWrite(value, super._locationServiceUnavailable, () {
+      super._locationServiceUnavailable = value;
     });
   }
 
@@ -62,6 +62,24 @@ mixin _$AddressController on AddressControllerBase, Store {
   set _locationPermission(LocationPermission? value) {
     _$_locationPermissionAtom.reportWrite(value, super._locationPermission, () {
       super._locationPermission = value;
+    });
+  }
+
+  late final _$_placeModelAtom =
+      Atom(name: 'AddressControllerBase._placeModel', context: context);
+
+  PlaceModel? get placeModel {
+    _$_placeModelAtom.reportRead();
+    return super._placeModel;
+  }
+
+  @override
+  PlaceModel? get _placeModel => placeModel;
+
+  @override
+  set _placeModel(PlaceModel? value) {
+    _$_placeModelAtom.reportWrite(value, super._placeModel, () {
+      super._placeModel = value;
     });
   }
 
