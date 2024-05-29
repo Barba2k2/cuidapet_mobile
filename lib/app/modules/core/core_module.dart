@@ -36,6 +36,8 @@ class CoreModule extends Module {
         Bind.lazySingleton(
           (i) => AuthStore(
             localStorage: i(),
+            localSecurityStorage: i(),
+            addressService: i(),
           ),
           export: true,
         ),
