@@ -27,12 +27,58 @@ mixin _$AddressController on AddressControllerBase, Store {
     });
   }
 
+  late final _$_locationServiceUnavaliableAtom = Atom(
+      name: 'AddressControllerBase._locationServiceUnavaliable',
+      context: context);
+
+  bool get locationServiceUnavaliable {
+    _$_locationServiceUnavaliableAtom.reportRead();
+    return super._locationServiceUnavaliable;
+  }
+
+  @override
+  bool get _locationServiceUnavaliable => locationServiceUnavaliable;
+
+  @override
+  set _locationServiceUnavaliable(bool value) {
+    _$_locationServiceUnavaliableAtom
+        .reportWrite(value, super._locationServiceUnavaliable, () {
+      super._locationServiceUnavaliable = value;
+    });
+  }
+
+  late final _$_locationPermissionAtom =
+      Atom(name: 'AddressControllerBase._locationPermission', context: context);
+
+  LocationPermission? get locationPermission {
+    _$_locationPermissionAtom.reportRead();
+    return super._locationPermission;
+  }
+
+  @override
+  LocationPermission? get _locationPermission => locationPermission;
+
+  @override
+  set _locationPermission(LocationPermission? value) {
+    _$_locationPermissionAtom.reportWrite(value, super._locationPermission, () {
+      super._locationPermission = value;
+    });
+  }
+
   late final _$getAddressesAsyncAction =
       AsyncAction('AddressControllerBase.getAddresses', context: context);
 
   @override
   Future<void> getAddresses() {
     return _$getAddressesAsyncAction.run(() => super.getAddresses());
+  }
+
+  late final _$myLocationAsyncAction =
+      AsyncAction('AddressControllerBase.myLocation', context: context);
+
+  @override
+  Future<void> myLocation() {
+    return _$myLocationAsyncAction.run(() => super.myLocation());
   }
 
   @override
