@@ -37,7 +37,7 @@ class _CuidapetAppBar extends StatelessWidget {
       centerTitle: true,
       title: const Padding(
         padding: EdgeInsets.only(bottom: 12.0),
-        child: Text('Cuidapet'),
+        child: Text('CUIDAPET'),
       ),
       elevation: 0,
       actions: [

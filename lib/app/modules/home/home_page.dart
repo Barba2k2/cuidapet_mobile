@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../core/ui/extension/theme_extension.dart';
 import '../../entity/address_entity.dart';
 import '../../life_cycle/page_life_cycle_state.dart';
+import '../../models/supplier_category_model.dart';
 import 'home_controller.dart';
 import 'widgets/home_appbar.dart';
 
@@ -34,8 +36,8 @@ class _HomePageState extends PageLifeCycleState<HomeController, HomePage> {
                 controller: controller,
               ),
             ),
-            const SliverToBoxAdapter(
-              child: _HomeCategoriesWidget(),
+            SliverToBoxAdapter(
+              child: _HomeCategoriesWidget(controller),
             ),
           ];
         },

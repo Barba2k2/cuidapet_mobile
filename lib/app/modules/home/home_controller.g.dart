@@ -27,6 +27,24 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$_listCategoriesAtom =
+      Atom(name: 'HomeControllerBase._listCategories', context: context);
+
+  List<SupplierCategoryModel> get listCategories {
+    _$_listCategoriesAtom.reportRead();
+    return super._listCategories;
+  }
+
+  @override
+  List<SupplierCategoryModel> get _listCategories => listCategories;
+
+  @override
+  set _listCategories(List<SupplierCategoryModel> value) {
+    _$_listCategoriesAtom.reportWrite(value, super._listCategories, () {
+      super._listCategories = value;
+    });
+  }
+
   late final _$_getAddressSelectedAsyncAction =
       AsyncAction('HomeControllerBase._getAddressSelected', context: context);
 
