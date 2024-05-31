@@ -211,25 +211,30 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
 }
 
 class _HomeSupplierGrid extends StatelessWidget {
-  final HomeController _homeController;
+  final HomeController controller;
 
-  const _HomeSupplierGrid(this._homeController);
+  const _HomeSupplierGrid(this.controller);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverGrid(
-          delegate: SliverChildBuilderDelegate(
-            childCount: 10,
-            (context, index) {
-              return _HomeSupplierCardItemWidget();
-            },
-          ),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1,
-          ),
+        Observer(
+          builder: (_) {
+            return SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                childCount: controller.listSuppliersByAddress.length,
+                (context, index) {
+                  final supplier = controller.listSuppliersByAddress[index];
+                  return _HomeSupplierCardItemWidget(supplier);
+                },
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1,
+              ),
+            );
+          },
         ),
       ],
     );
@@ -237,7 +242,9 @@ class _HomeSupplierGrid extends StatelessWidget {
 }
 
 class _HomeSupplierCardItemWidget extends StatelessWidget {
-  const _HomeSupplierCardItemWidget();
+  final SupplierNearbyMeModel supplier;
+
+  const _HomeSupplierCardItemWidget(this.supplier);
 
   @override
   Widget build(BuildContext context) {
@@ -266,13 +273,13 @@ class _HomeSupplierCardItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    'Clinica Central ABC',
+                    supplier.name,
                     style: context.textTheme.subtitle2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const Text(
-                    '3,4 Km de distancia',
+                  Text(
+                    '${supplier.distance.toStringAsFixed(2)} Km de distancia',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -288,16 +295,14 @@ class _HomeSupplierCardItemWidget extends StatelessWidget {
             backgroundColor: Colors.grey[200],
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 4,
           left: 0,
           right: 0,
           child: Center(
             child: CircleAvatar(
               radius: 36,
-              backgroundImage: NetworkImage(
-                'https://grafufs.wordpress.com/wp-content/uploads/2019/08/guaxinim.jpg',
-              ),
+              backgroundImage: NetworkImage(supplier.logo),
             ),
           ),
         )
