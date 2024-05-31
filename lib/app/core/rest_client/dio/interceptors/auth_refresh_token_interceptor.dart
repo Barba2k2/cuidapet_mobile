@@ -6,6 +6,7 @@ import '../../../helpers/constants.dart';
 import '../../../local_storage/local_storage.dart';
 import '../../../logger/app_logger.dart';
 import '../../rest_client.dart';
+import '../../rest_client_exception.dart';
 
 class AuthRefreshTokenInterceptor extends Interceptor {
   final AuthStore _authStore;
@@ -45,7 +46,7 @@ class AuthRefreshTokenInterceptor extends Interceptor {
             _log.info('############ Refresh Token ############');
             await _refreshToken(err);
             await _retryRequest(err, handler);
-            _log.info('############ Refresh Token Successfull ############');
+            _log.info('############ Refresh Token Success ############');
           } else {
             throw err;
           }
@@ -69,11 +70,33 @@ class AuthRefreshTokenInterceptor extends Interceptor {
   }
 
   Future<void> _refreshToken(DioException err) async {
-    final refreshToken = await _localSecurityStorage.read(
-      Constants.LOCAL_STORARE_REFRESH_TOKEN_KEY,
-    );
+    try {
+      final refreshToken = await _localSecurityStorage.read(
+        Constants.LOCAL_STORARE_REFRESH_TOKEN_KEY,
+      );
 
-    if (refreshToken == null) {
+      if (refreshToken == null) {
+        throw ExpireTokenException();
+      }
+
+      final resultRefresh = await _restClient.auth().put(
+        '/auth/refresh',
+        data: {
+          'refresh_token': refreshToken,
+        },
+      );
+
+      await _localStorage.write<String>(
+        Constants.LOCAL_STORARE_ACCESS_TOKEN_KEY,
+        resultRefresh.data['access_token'],
+      );
+
+      await _localSecurityStorage.write(
+        Constants.LOCAL_STORARE_REFRESH_TOKEN_KEY,
+        resultRefresh.data['refresh_token'],
+      );
+    } on RestClientException catch (e, s) {
+      _log.error('Error on refresh token', e, s);
       throw ExpireTokenException();
     }
   }
@@ -82,7 +105,8 @@ class AuthRefreshTokenInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    _log.info('############ Retry Request: ${err.requestOptions.path} ############');
+    _log.info(
+        '############ Retry Request: ${err.requestOptions.path} ############');
     final requestOptions = err.requestOptions;
 
     final result = await _restClient.request(
