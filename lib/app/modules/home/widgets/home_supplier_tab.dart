@@ -20,7 +20,7 @@ class _HomeSupplierTab extends StatelessWidget {
                 child: homeController.supplierPageTypeSelected ==
                         SupplierPageType.list
                     ? _HomeSupplierList(homeController)
-                    : const _HomeSupplierGrid(),
+                    : _HomeSupplierGrid(homeController),
               );
             },
           ),
@@ -211,15 +211,97 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
 }
 
 class _HomeSupplierGrid extends StatelessWidget {
-  const _HomeSupplierGrid();
+  final HomeController _homeController;
+
+  const _HomeSupplierGrid(this._homeController);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.purpleAccent,
-      ),
-      child: const Text('Supplier Grid'),
+    return CustomScrollView(
+      slivers: [
+        SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+            childCount: 10,
+            (context, index) {
+              return _HomeSupplierCardItemWidget();
+            },
+          ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HomeSupplierCardItemWidget extends StatelessWidget {
+  const _HomeSupplierCardItemWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Card(
+          margin: const EdgeInsets.only(
+            top: 40,
+            left: 10,
+            right: 10,
+            bottom: 10,
+          ),
+          elevation: 6,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SizedBox.expand(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 40,
+                right: 10,
+                left: 10,
+                bottom: 10,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'Clinica Central ABC',
+                    style: context.textTheme.subtitle2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Text(
+                    '3,4 Km de distancia',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.grey[200],
+          ),
+        ),
+        const Positioned(
+          top: 4,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: CircleAvatar(
+              radius: 36,
+              backgroundImage: NetworkImage(
+                'https://grafufs.wordpress.com/wp-content/uploads/2019/08/guaxinim.jpg',
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
