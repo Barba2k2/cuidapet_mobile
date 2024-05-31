@@ -84,6 +84,48 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$_listSuppliersByAddressCacheAtom = Atom(
+      name: 'HomeControllerBase._listSuppliersByAddressCache',
+      context: context);
+
+  List<SupplierNearbyMeModel> get listSuppliersByAddressCache {
+    _$_listSuppliersByAddressCacheAtom.reportRead();
+    return super._listSuppliersByAddressCache;
+  }
+
+  @override
+  List<SupplierNearbyMeModel> get _listSuppliersByAddressCache =>
+      listSuppliersByAddressCache;
+
+  @override
+  set _listSuppliersByAddressCache(List<SupplierNearbyMeModel> value) {
+    _$_listSuppliersByAddressCacheAtom
+        .reportWrite(value, super._listSuppliersByAddressCache, () {
+      super._listSuppliersByAddressCache = value;
+    });
+  }
+
+  late final _$_supplierCategoryFilterSelectedAtom = Atom(
+      name: 'HomeControllerBase._supplierCategoryFilterSelected',
+      context: context);
+
+  SupplierCategoryModel? get supplierCategoryFilterSelected {
+    _$_supplierCategoryFilterSelectedAtom.reportRead();
+    return super._supplierCategoryFilterSelected;
+  }
+
+  @override
+  SupplierCategoryModel? get _supplierCategoryFilterSelected =>
+      supplierCategoryFilterSelected;
+
+  @override
+  set _supplierCategoryFilterSelected(SupplierCategoryModel? value) {
+    _$_supplierCategoryFilterSelectedAtom
+        .reportWrite(value, super._supplierCategoryFilterSelected, () {
+      super._supplierCategoryFilterSelected = value;
+    });
+  }
+
   late final _$_getAddressSelectedAsyncAction =
       AsyncAction('HomeControllerBase._getAddressSelected', context: context);
 
@@ -127,6 +169,28 @@ mixin _$HomeController on HomeControllerBase, Store {
         name: 'HomeControllerBase.changeTabSupplier');
     try {
       return super.changeTabSupplier(supplierPageType);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void filterSupplierCategory(SupplierCategoryModel category) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.filterSupplierCategory');
+    try {
+      return super.filterSupplierCategory(category);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void filterSupplier() {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.filterSupplier');
+    try {
+      return super.filterSupplier();
     } finally {
       _$HomeControllerBaseActionController.endAction(_$actionInfo);
     }
