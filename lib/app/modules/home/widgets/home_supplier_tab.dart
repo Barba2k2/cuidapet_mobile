@@ -89,7 +89,7 @@ class _HomeSupplierList extends StatelessWidget {
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: 101,
+            childCount: 10,
             (context, index) {
               return const _HomeSupplierItemListWidget();
             },
@@ -105,6 +105,7 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Stack(
@@ -162,7 +163,7 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 6),
+            margin: EdgeInsets.only(top: size.width * 0.025),
             width: 70,
             height: 70,
             decoration: BoxDecoration(
