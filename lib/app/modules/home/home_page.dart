@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/extension/size_screen_extension.dart';
 import '../../core/ui/extension/theme_extension.dart';
