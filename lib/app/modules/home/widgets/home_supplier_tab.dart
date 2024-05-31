@@ -19,7 +19,7 @@ class _HomeSupplierTab extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 child: homeController.supplierPageTypeSelected ==
                         SupplierPageType.list
-                    ? const _HomeSupplierList()
+                    ? _HomeSupplierList(homeController)
                     : const _HomeSupplierGrid(),
               );
             },
@@ -81,19 +81,27 @@ class _HomeTabHeader extends StatelessWidget {
 }
 
 class _HomeSupplierList extends StatelessWidget {
-  const _HomeSupplierList();
+  final HomeController _homeController;
+
+  const _HomeSupplierList(this._homeController);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: 10,
-            (context, index) {
-              return const _HomeSupplierItemListWidget();
-            },
-          ),
+        Observer(
+          builder: (_) {
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: _homeController.listSuppliersByAddress.length,
+                (context, index) {
+                  final supplier =
+                      _homeController.listSuppliersByAddress[index];
+                  return _HomeSupplierItemListWidget(supplier: supplier);
+                },
+              ),
+            );
+          },
         ),
       ],
     );
@@ -101,7 +109,9 @@ class _HomeSupplierList extends StatelessWidget {
 }
 
 class _HomeSupplierItemListWidget extends StatelessWidget {
-  const _HomeSupplierItemListWidget();
+  final SupplierNearbyMeModel supplier;
+
+  const _HomeSupplierItemListWidget({required this.supplier});
 
   @override
   Widget build(BuildContext context) {
@@ -127,20 +137,25 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Clinica Central ABC',
+                        Text(
+                          supplier.name,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.location_on_rounded,
                               size: 16,
                             ),
-                            Text('1,34 Km de distância')
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              '${supplier.distance.toStringAsFixed(2)} Km de distância',
+                            )
                           ],
                         ),
                       ],
@@ -182,10 +197,8 @@ class _HomeSupplierItemListWidget extends StatelessWidget {
                 ),
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(100),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    'https://petanjo.com/blog/wp-content/uploads/2021/01/lulu-da-pomerania-1.jpg',
-                  ),
+                image: DecorationImage(
+                  image: NetworkImage(supplier.logo),
                   fit: BoxFit.contain,
                 ),
               ),
