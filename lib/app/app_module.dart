@@ -4,6 +4,7 @@ import 'modules/address/address_module.dart';
 import 'modules/auth/auth_module.dart';
 import 'modules/core/core_module.dart';
 import 'modules/home/home_module.dart';
+import 'modules/schedules/schedules_module.dart';
 import 'modules/supplier/supplier_module.dart';
 
 class AppModule extends Module {
@@ -32,6 +33,10 @@ class AppModule extends Module {
         ModuleRoute(
           '/supplier/',
           module: SupplierModule(),
+        ),
+        ModuleRoute(
+          '/schedules/',
+          module: SchedulesModule(),
         ),
       ];
 }

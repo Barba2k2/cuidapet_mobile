@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../core/ui/extension/theme_extension.dart';
 import '../../../models/supplier_model.dart';
+import '../supplier_controller.dart';
 
 class SupplierDetail extends StatelessWidget {
   final SupplierModel supplier;
-  const SupplierDetail({super.key, required this.supplier});
+  final SupplierController controller;
+
+  const SupplierDetail({
+    super.key,
+    required this.supplier,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +47,7 @@ class SupplierDetail extends StatelessWidget {
           ),
         ),
         ListTile(
+          onTap: controller.goToGeoOrCopyAddressToClipart,
           leading: const Icon(
             Icons.location_city_rounded,
             color: Colors.black,
@@ -47,6 +55,7 @@ class SupplierDetail extends StatelessWidget {
           title: Text(supplier.address),
         ),
         ListTile(
+          onTap: controller.goToPhoneOrCopyPhoneToClipart,
           leading: const Icon(
             Icons.local_phone_rounded,
             color: Colors.black,
