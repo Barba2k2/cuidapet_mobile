@@ -98,7 +98,15 @@ class SupplierRepositoryImpl implements SupplierRepository {
   Future<SupplierModel> findById(int id) async {
     try {
       final result = await _restClient.auth().get('/suppliers/$id');
-      return SupplierModel.fromMap(result.data);
+      
+      if (result.data is String) {
+        final decodedData = json.decode(result.data);
+        return SupplierModel.fromMap(decodedData);
+      } else if (result.data is Map<String, dynamic>) {
+        return SupplierModel.fromMap(result.data);
+      } else {
+        throw Exception('Unexpected response format');
+      }
     } on RestClientException catch (e, s) {
       _log.error('Error on find supplier data by id', e, s);
       throw Failure(message: 'Erro ao buscar dados do fornecedor por id');
@@ -112,12 +120,26 @@ class SupplierRepositoryImpl implements SupplierRepository {
             '/suppliers/$supplierId/services',
           );
 
-      return result.data
-              ?.map<SupplierServicesModel>(
-                (jService) => SupplierCategoryModel.fromMap(jService),
-              )
-              .toList() ??
-          <SupplierServicesModel>[];
+      if (result.data is String) {
+        final decodedData = json.decode(result.data) as List;
+        return decodedData
+            .map<SupplierServicesModel>(
+              (serviceResponse) => SupplierServicesModel.fromMap(
+                serviceResponse,
+              ),
+            )
+            .toList();
+      } else if (result.data is List) {
+        return result.data
+            .map<SupplierServicesModel>(
+              (serviceResponse) => SupplierServicesModel.fromMap(
+                serviceResponse,
+              ),
+            )
+            .toList();
+      } else {
+        throw Exception('Unexpected response format');
+      }
     } on RestClientException catch (e, s) {
       _log.error('Error on find service of supplier', e, s);
       throw Failure(message: 'Erro ao buscar serviços do fornecedor');

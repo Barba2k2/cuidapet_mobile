@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/helpers/text_formatter.dart';
 import '../../../core/ui/extension/theme_extension.dart';
+import '../../../models/supplier_services_model.dart';
 
 class SupplierServiceWidget extends StatelessWidget {
-  const SupplierServiceWidget({super.key});
+  final SupplierServicesModel service;
+
+  const SupplierServiceWidget({
+    super.key,
+    required this.service,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +18,10 @@ class SupplierServiceWidget extends StatelessWidget {
       leading: const CircleAvatar(
         child: Icon(Icons.pets_rounded),
       ),
-      title: const Text('Banho'),
-      subtitle: const Text('R\$ 50,00'),
+      title: Text(service.name),
+      subtitle: Text(
+        TextFormatter.formatReal(service.price),
+      ),
       trailing: Icon(
         Icons.add_circle_rounded,
         size: 30,

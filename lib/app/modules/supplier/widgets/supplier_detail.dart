@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/ui/extension/theme_extension.dart';
+import '../../../models/supplier_model.dart';
 
 class SupplierDetail extends StatelessWidget {
-  const SupplierDetail({super.key});
+  final SupplierModel supplier;
+  const SupplierDetail({super.key, required this.supplier});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class SupplierDetail extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
           child: Center(
             child: Text(
-              'Clinica Central ABC',
+              supplier.name,
               style: context.textTheme.titleLarge,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
@@ -28,7 +30,7 @@ class SupplierDetail extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Informações do estabelicimento',
+            'Informações do estabelecimento',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -37,19 +39,19 @@ class SupplierDetail extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        const ListTile(
-          leading: Icon(
+        ListTile(
+          leading: const Icon(
             Icons.location_city_rounded,
             color: Colors.black,
           ),
-          title: Text('Rua das Palmeiras, 123'),
+          title: Text(supplier.address),
         ),
-        const ListTile(
-          leading: Icon(
+        ListTile(
+          leading: const Icon(
             Icons.local_phone_rounded,
             color: Colors.black,
           ),
-          title: Text('(12) 3554-3554'),
+          title: Text(supplier.phone),
         ),
       ],
     );

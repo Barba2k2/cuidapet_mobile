@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../core/ui/extension/theme_extension.dart';
+import '../../life_cycle/page_life_cycle_state.dart';
+import 'supplier_controller.dart';
 import 'widgets/supplier_detail.dart';
 import 'widgets/supplier_service_widget.dart';
 
 class SupplierPage extends StatefulWidget {
-  const SupplierPage({super.key});
+  final int _supplierId;
+
+  const SupplierPage({
+    super.key,
+    required int supplierId,
+  }) : _supplierId = supplierId;
 
   @override
   State<SupplierPage> createState() => _SupplierPageState();
 }
 
-class _SupplierPageState extends State<SupplierPage> {
+class _SupplierPageState
+    extends PageLifeCycleState<SupplierController, SupplierPage> {
   late ScrollController _scrollController;
   bool sliverCollapesed = false;
   ValueNotifier<bool> sliverCollapsedVN = ValueNotifier(false);
+
+  @override
+  Map<String, dynamic>? get params => {
+        'supplierId': widget._supplierId,
+      };
 
   @override
   void initState() {
@@ -54,64 +68,79 @@ class _SupplierPageState extends State<SupplierPage> {
         backgroundColor: context.primaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 200,
-            pinned: true,
-            centerTitle: true,
-            title: ValueListenableBuilder<bool>(
-              valueListenable: sliverCollapsedVN,
-              builder: (_, sliverCollapesedValue, child) {
-                return Visibility(
-                  visible: sliverCollapesedValue,
-                  child: const Text(
-                    'Pet Shop do Guaxinim',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
+      body: Observer(
+        builder: (_) {
+          final supplier = controller.supplierModel;
+
+          if (supplier == null) {
+            return const Text('Buscando dados do fornecedor...');
+          }
+
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 200,
+                pinned: true,
+                centerTitle: true,
+                title: ValueListenableBuilder<bool>(
+                  valueListenable: sliverCollapsedVN,
+                  builder: (_, sliverCollapesedValue, child) {
+                    return Visibility(
+                      visible: sliverCollapesedValue,
+                      child: Text(
+                        supplier.name,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  },
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  stretchModes: const [
+                    StretchMode.zoomBackground,
+                    StretchMode.fadeTitle,
+                  ],
+                  background: Image.network(
+                    supplier.logo,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const SizedBox.shrink();
+                    },
                   ),
-                );
-              },
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              stretchModes: const [
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
-              background: Image.network(
-                'https://grafufs.wordpress.com/wp-content/uploads/2019/08/guaxinim.jpg',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const SizedBox.shrink();
-                },
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SupplierDetail(),
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Serviços (0 selecionados)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
                 ),
               ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: 1000,
-              (context, index) {
-                return const SupplierServiceWidget();
-              },
-            ),
-          ),
-        ],
+              SliverToBoxAdapter(
+                child: SupplierDetail(
+                  supplier: supplier,
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Serviços (0 selecionados)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: controller.supplierServices.length,
+                  (context, index) {
+                    final service = controller.supplierServices[index];
+                    return SupplierServiceWidget(
+                      service: service,
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
