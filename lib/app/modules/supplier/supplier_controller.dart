@@ -27,6 +27,10 @@ abstract class SupplierControllerBase with Store, ControllerLifeCycle {
   @readonly
   var _supplierServices = <SupplierServicesModel>[];
 
+  @readonly
+  // ignore: prefer_final_fields
+  var _servicesSelected = <SupplierServicesModel>[].asObservable();
+
   SupplierControllerBase({
     required SupplierService supplierService,
     required AppLogger log,
@@ -71,4 +75,18 @@ abstract class SupplierControllerBase with Store, ControllerLifeCycle {
       Messages.alert('Erro ao buscar serviços do fornecedor');
     }
   }
+
+  @action
+  void addOrRemoveServices(SupplierServicesModel supplierServicesModel) {
+    if (_servicesSelected.contains(supplierServicesModel)) {
+      _servicesSelected.remove(supplierServicesModel);
+    } else {
+      _servicesSelected.add(supplierServicesModel);
+    }
+  }
+
+  bool isServiceSelected(SupplierServicesModel servicesModel) =>
+      _servicesSelected.contains(servicesModel);
+
+  int get totalServicesSelected => _servicesSelected.length;
 }

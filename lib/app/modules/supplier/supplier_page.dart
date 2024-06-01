@@ -56,16 +56,24 @@ class _SupplierPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text(
-          'Realizar Agendamento',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        icon: const Icon(Icons.schedule_rounded),
-        backgroundColor: context.primaryColor,
+      floatingActionButton: Observer(
+        builder: (_) {
+          return AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: controller.totalServicesSelected > 0 ? 1 : 0,
+            child: FloatingActionButton.extended(
+              onPressed: () {},
+              label: const Text(
+                'Realizar Agendamento',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              icon: const Icon(Icons.schedule_rounded),
+              backgroundColor: context.primaryColor,
+            ),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Observer(
@@ -115,12 +123,12 @@ class _SupplierPageState
                   supplier: supplier,
                 ),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Serviços (0 selecionados)',
-                    style: TextStyle(
+                    'Serviços (${controller.totalServicesSelected} selecionado${controller.totalServicesSelected > 1 ? 's' : ''})',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -134,6 +142,7 @@ class _SupplierPageState
                     final service = controller.supplierServices[index];
                     return SupplierServiceWidget(
                       service: service,
+                      supplierController: controller,
                     );
                   },
                 ),
